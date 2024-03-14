@@ -23,7 +23,7 @@ function App() {
 
   return (
     <>
-      <Navbar srcDOC={srcDOC} />
+      <Navbar srcDOC={srcDOC} html={html} css={css} js={js} />
       <div className="pane top pane">
         <Editor
           language="xml"

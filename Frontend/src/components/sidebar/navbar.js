@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import "./navbar.css";
-import { SidebarData, TestData } from "./SidebarData";
+import { SidebarData } from "./SidebarData";
 
-function Navbar({ srcDOC }) {
+function Navbar({ srcDOC, html, css, js }) {
   const [sidebar, setSidebar] = useState(false);
   const [selectedTest, setSelectedTest] = useState(null);
+  const [TestData, setTestData] = useState([]);
 
   const showSidebar = () => {
     setSidebar(!sidebar);
@@ -20,19 +21,49 @@ function Navbar({ srcDOC }) {
     }
     setSelectedTest(e.target.selectedIndex - 1);
   };
-  const handleRunTest = (selectedTest, TestData) => {
+  const handleRunTest = async (selectedTest) => {
     if (selectedTest === null) return; // Return if no test is selected
-    const htmlDoc = new DOMParser().parseFromString(srcDOC, "text/html");
-    const updatedTestData = TestData[selectedTest].tests.map((category) => {
-      const result = category.test(htmlDoc);
-      return {
-        ...category,
-        result: result ? "pass" : "fail",
-      };
-    });
-    TestData[selectedTest].tests = updatedTestData;
-    setSelectedTest(selectedTest);
+    try {
+      const title = TestData[selectedTest].title;
+      const response = await fetch("http://localhost:5000/test/testcode", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          srcDOC,
+          html,
+          css,
+          js,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to run test on backend");
+      }
+      console.log(await response.json());
+      console.log("Test run successfully on backend!");
+    } catch (error) {
+      console.error("Error running test on backend:", error);
+    }
   };
+  useEffect(() => {
+    const fetchTestData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/fetchtest");
+        if (!response.ok) {
+          throw new Error("Failed to fetch test data");
+        }
+        const data = await response.json();
+        console.log(data);
+        setTestData(data);
+      } catch (error) {
+        console.error("Error fetching test data:", error);
+      }
+    };
+
+    fetchTestData();
+  }, []);
 
   return (
     <>
@@ -54,7 +85,7 @@ function Navbar({ srcDOC }) {
           {/* Render "Run Tests" button */}
           {SidebarData.map((item, index) => (
             <li key={index} className={item.cName}>
-              <button onClick={() => handleRunTest(selectedTest, TestData)}>
+              <button onClick={() => handleRunTest(selectedTest)}>
                 {item.icon}
                 <span>{item.title}</span>
               </button>

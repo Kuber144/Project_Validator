@@ -11,6 +11,7 @@ const testModel = () => ({
   htmlValueToCompare: "",
   htmlComparisonType: "",
   functionName: "",
+  testType: "",
   numArguments: 0,
   arguments: [],
   expectedOutput: "",

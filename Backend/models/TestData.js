@@ -1,20 +1,27 @@
 import mongoose, { Schema } from "mongoose";
 
 const testSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
+  title: { type: String, required: true },
   tests: [
     {
-      description: {
-        type: String,
-        required: true,
-      },
-      test: {
-        type: String,
-        required: true,
-      },
+      description: { type: String },
+      type: { type: String },
+      selector: { type: String },
+      property: { type: String },
+      value: { type: String },
+      htmlOption: { type: String },
+      htmlValue: { type: String },
+      htmlCondition: { type: String },
+      htmlValueToCompare: { type: String },
+      htmlComparisonType: { type: String },
+      functionName: { type: String },
+      checkType: { type: String },
+      arguments: { type: [String] },
+      expectedOutput: { type: String },
+      selectorType: { type: String },
+      cssElement: { type: String },
+      cssProperty: { type: String },
+      cssValue: { type: String },
     },
   ],
 });

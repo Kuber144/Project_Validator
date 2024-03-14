@@ -24,7 +24,7 @@ export default function CreateTests() {
     setTests(newTests);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formattedTests = {
       title: testName,
@@ -40,6 +40,7 @@ export default function CreateTests() {
         htmlValueToCompare: test.htmlValueToCompare,
         htmlComparisonType: test.htmlComparisonType,
         functionName: test.functionName,
+        testType: test.functionCheckType,
         numArguments: test.numArguments,
         arguments: test.arguments,
         expectedOutput: test.expectedOutput,
@@ -51,8 +52,23 @@ export default function CreateTests() {
     };
     console.log("Formatted Tests:", formattedTests);
     // Reset form fields
-    setTestName("");
-    setTests([testModel()]);
+    try {
+      const response = await fetch("http://localhost:5000/api/addtest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formattedTests),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to save tests");
+      }
+      console.log("Tests saved successfully!");
+      setTestName("");
+      setTests([testModel()]);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
