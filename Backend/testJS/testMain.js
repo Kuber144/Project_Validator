@@ -32,8 +32,11 @@ export function testJS(js, test) {
       const signatureEndIndex = js.indexOf(")", functionIndex); //where the arguments end
       const signature = js.slice(endIndex + 1, signatureEndIndex); //get the function signature
       const argsPassed = signature.split(",").map((arg) => arg.trim()); //get the arguments
-
-      if (argsPassed.length !== args.length) {
+      let ll = argsPassed.length;
+      if (argsPassed.length === 1 && argsPassed[0] === "") {
+        ll = 0;
+      }
+      if (ll !== args.length) {
         //in case the number of arguments in test dont match with the function
         return {
           pass: false,
@@ -53,9 +56,9 @@ export function testJS(js, test) {
       console.log("Output:", output);
 
       const isPass = output == expectedOutput;
-
+      console.log(isPass);
       return {
-        status: isPass ? true : false,
+        pass: isPass ? true : false,
         reason: isPass
           ? "All cases passed"
           : `Expected '${expectedOutput}' but got '${output}'`,
