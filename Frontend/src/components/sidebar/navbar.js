@@ -4,12 +4,15 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import "./navbar.css";
 import { SidebarData } from "./SidebarData";
+import CenteredModal from "../modals/centeredModal";
 
 function Navbar({ srcDOC, html, css, js }) {
   const [sidebar, setSidebar] = useState(false);
   const [selectedTest, setSelectedTest] = useState(null);
   const [testData, setTestData] = useState([]);
   const [testResults, setTestResults] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [modalBody, setModalBody] = useState("");
 
   const showSidebar = () => {
     setSidebar(!sidebar);
@@ -71,17 +74,30 @@ function Navbar({ srcDOC, html, css, js }) {
     fetchTestData();
   }, []);
   const handleRedItemClick = (reason) => {
-    alert(reason); // Display reason in alert popup
+    setModalBody(reason);
+    setModalShow(true);
   };
   return (
     <>
+      <CenteredModal
+        heading="Error"
+        body={modalBody}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+      {/*  THE MODAL FOR POPUP OVER HERE*/}
       <div className="navbar">
         <Link to="#" className="menu-bars">
           <FaIcons.FaBars onClick={showSidebar} />
         </Link>
-        <Link to="/create">
-          <button className="create-button">Create Tests</button>
-        </Link>
+        <div className="create-button-container">
+          <Link to="/create">
+            <button className="create-button">Create Tests</button>
+          </Link>
+          <Link to="/delete">
+            <button className="delete-button">Delete Tests</button>
+          </Link>
+        </div>
       </div>
       <nav className={sidebar ? "nav-menu open" : "nav-menu"}>
         <ul className="nav-menu-items">
@@ -130,7 +146,8 @@ function Navbar({ srcDOC, html, css, js }) {
                       onClick={() =>
                         test.pass
                           ? null
-                          : handleRedItemClick(testResults[index].reason)
+                          : testResults.length > 0 &&
+                            handleRedItemClick(testResults[index].reason)
                       }
                     >
                       {test.description}

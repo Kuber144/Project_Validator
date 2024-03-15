@@ -17,3 +17,5 @@ export default function useLocalStorage(key, initialValue) {
   }, [prefixedKey, value]);
   return [value, setValue];
 }
+
+//local storage to store the users code

@@ -44,6 +44,7 @@ export function testHTML($, test) {
   }
 
   if (elements.length === 0) {
+    //CHECK IF THE ELEMENT EXISTS
     return {
       pass: false,
       reason: `No elements found with ${htmlOption} '${htmlValue}'`,

@@ -1,4 +1,4 @@
-// models/testModel.js
+// The model to be used
 const testModel = () => ({
   description: "",
   type: "",

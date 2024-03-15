@@ -1,6 +1,5 @@
 import { JSDOM } from "jsdom";
 /**
- * Function to test a single CSS element based on the provided test parameters.
  * @param {CheerioStatic} $ The Cheerio instance representing the parsed HTML.
  * @param {object} test The test parameters containing CSS test conditions.
  * @returns {object} An object containing the pass status and reason for the test.
@@ -52,7 +51,7 @@ export function testCSS(srcDoc, test) {
 
   switch (comparisonType) {
     case "equals":
-      pass = computedValue === cssValue;
+      pass = computedValue === cssValue; //compare with the value we got
       break;
     case "below":
       pass = parseFloat(computedValue) < parseFloat(cssValue);

@@ -62,4 +62,27 @@ router.get("/fetchtest", async (req, res) => {
     res.status(500).json({ error: "An error occured while fetching the data" });
   }
 });
+
+// DELETE endpoint to delete a test by ID
+router.delete("/deletetest/:id", async (req, res) => {
+  try {
+    const testId = req.params.id;
+
+    // Find the test by ID and delete it
+    const deletedTest = await TestData.findByIdAndDelete(testId);
+
+    // If the test with the specified ID doesn't exist
+    if (!deletedTest) {
+      return res.status(404).json({ error: "Test not found" });
+    }
+
+    res.status(200).json({ message: "Test deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the test" });
+  }
+});
+
 export default router;
