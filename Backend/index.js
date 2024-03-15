@@ -7,7 +7,7 @@ connectToMongo();
 
 const app = express();
 
-const port = 5000; //running on port 5000
+const port = process.env.PORT || 8000; //running on port 8000
 app.use(cors()); //Apply cors
 app.use(json({ limit: "25mb" })); //limit json to 25mb
 app.use((req, res, next) => {
