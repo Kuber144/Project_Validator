@@ -7,7 +7,7 @@ connectToMongo();
 
 const app = express();
 
-const port = process.env.PORT || 8000; //running on port 8000
+const PORT = process.env.PORT || 8000; //running on port 8000
 app.use(cors()); //Apply cors
 app.use(json({ limit: "25mb" })); //limit json to 25mb
 app.use((req, res, next) => {
@@ -21,6 +21,8 @@ app.use("/test", TestCode); //For testing the code
 app.get("/", (req, res) => {
   res.send("Application is running!");
 });
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
+
+export default app;
