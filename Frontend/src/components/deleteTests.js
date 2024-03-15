@@ -11,7 +11,9 @@ export default function TestList() {
 
   const fetchTests = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/fetchtest");
+      const response = await fetch(
+        "https://project-validator-backend-xi.vercel.app/api/fetchtest"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch tests");
       }

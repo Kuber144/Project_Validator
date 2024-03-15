@@ -18,6 +18,9 @@ app.use((req, res, next) => {
 app.use("/api", TestRoute); // Adding and Fetching the test
 app.use("/test", TestCode); //For testing the code
 
+app.get("/", (req, res) => {
+  res.send("Application is running!");
+});
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
