@@ -12,7 +12,7 @@ export default function TestList() {
   const fetchTests = async () => {
     try {
       const response = await fetch(
-        "https://project-validator-backend-xi.vercel.app/api/fetchtest"
+        "https://project-validator-backend-three.vercel.app/api/fetchtest"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch tests");
@@ -27,7 +27,7 @@ export default function TestList() {
   const handleDeleteTest = async (testId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/deletetest/${testId}`,
+        `https://project-validator-backend-three.vercel.app/api/deletetest/${testId}`,
         {
           method: "DELETE",
         }
