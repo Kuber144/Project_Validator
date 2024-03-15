@@ -21,7 +21,8 @@ router.post("/testcode", async (req, res) => {
     for (let i = 0; i < test.tests.length; i++) {
       const testItem = test.tests[i];
       if (testItem.type === "html") {
-        const res = testHTML($, testItem);
+        const testResponse = testHTML($, testItem);
+        jsonResponse[`${i + 1}`] = testResponse; // Append response to JSON object
       }
       if (testItem.type === "js") {
         const testResponse = testJS(js, testItem);

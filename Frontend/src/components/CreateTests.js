@@ -40,7 +40,7 @@ export default function CreateTests() {
         htmlValueToCompare: test.htmlValueToCompare,
         htmlComparisonType: test.htmlComparisonType,
         functionName: test.functionName,
-        testType: test.functionCheckType,
+        testType: test.testType,
         numArguments: test.numArguments,
         arguments: test.arguments,
         expectedOutput: test.expectedOutput,

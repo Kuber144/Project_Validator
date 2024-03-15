@@ -4,7 +4,7 @@ export function testJS(js, test) {
     const functionName = test.functionName;
     const expectedOutput = test.expectedOutput;
     const args = test.arguments;
-    const checkType = test.checkType;
+    const checkType = test.testType;
 
     const functionRegex = new RegExp(`function\\s+${functionName}\\s*\\(`);
     const match = js.match(functionRegex);

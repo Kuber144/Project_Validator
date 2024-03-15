@@ -15,7 +15,7 @@ const testSchema = new Schema({
       htmlValueToCompare: { type: String },
       htmlComparisonType: { type: String },
       functionName: { type: String },
-      checkType: { type: String },
+      testType: { type: String },
       arguments: { type: [String] },
       expectedOutput: { type: String },
       selectorType: { type: String },

@@ -6,6 +6,7 @@ import { TestData } from "../models/TestData.js";
 router.post("/addtest", async (req, res) => {
   try {
     const { title, tests } = req.body;
+    console.log(tests);
     const formattedTests = tests.map((test) => ({
       description: test.description,
       type: test.type,
@@ -18,7 +19,7 @@ router.post("/addtest", async (req, res) => {
       htmlValueToCompare: test.htmlValueToCompare,
       htmlComparisonType: test.htmlComparisonType,
       functionName: test.functionName,
-      checkType: test.checkType,
+      testType: test.testType,
       arguments: test.arguments,
       expectedOutput: test.expectedOutput,
       selectorType: test.selectorType,
