@@ -15,6 +15,9 @@ export default function CssSection({ index, handleInputChange, test }) {
         <option value="">Select Selector Type</option>
         <option value="id">ID</option>
         <option value="class">Class</option>
+        <option value="tag">Tag</option>
+        <option value="attribute">Attribute</option>
+        <option value="custom">Custom</option>
       </select>
       <InputField
         id={`cssElement${index}`}
@@ -36,6 +39,31 @@ export default function CssSection({ index, handleInputChange, test }) {
         value={test.cssValue}
         onChange={(e) => handleInputChange(index, "cssValue", e.target.value)}
       />
+      <select
+        id={`comparisonType${index}`}
+        value={test.comparisonType}
+        onChange={(e) =>
+          handleInputChange(index, "comparisonType", e.target.value)
+        }
+        required
+      >
+        <option value="">Select Comparison Type</option>
+        <option value="equals">Equal to</option>
+        <option value="below">Below</option>
+        <option value="above">Above</option>
+        <option value="between">In Between</option>
+      </select>
+      {test.comparisonType === "between" && (
+        <>
+          <InputField
+            id={`cssValue2${index}`}
+            label="Less Than:"
+            value={test.value2}
+            type="number"
+            onChange={(e) => handleInputChange(index, "value2", e.target.value)}
+          />
+        </>
+      )}
     </>
   );
 }

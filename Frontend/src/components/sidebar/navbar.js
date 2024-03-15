@@ -8,7 +8,8 @@ import { SidebarData } from "./SidebarData";
 function Navbar({ srcDOC, html, css, js }) {
   const [sidebar, setSidebar] = useState(false);
   const [selectedTest, setSelectedTest] = useState(null);
-  const [TestData, setTestData] = useState([]);
+  const [testData, setTestData] = useState([]);
+  const [testResults, setTestResults] = useState([]);
 
   const showSidebar = () => {
     setSidebar(!sidebar);
@@ -19,12 +20,14 @@ function Navbar({ srcDOC, html, css, js }) {
       setSelectedTest(null);
       return;
     }
+    setTestResults([]); // Clear test results when a new test is selected
     setSelectedTest(e.target.selectedIndex - 1);
   };
-  const handleRunTest = async (selectedTest) => {
-    if (selectedTest === null) return; // Return if no test is selected
+
+  const handleRunTest = async (selectedTestIndex) => {
+    if (selectedTestIndex === null) return; // Return if no test is selected
     try {
-      const title = TestData[selectedTest].title;
+      const title = testData[selectedTestIndex].title;
       const response = await fetch("http://localhost:5000/test/testcode", {
         method: "POST",
         headers: {
@@ -41,12 +44,15 @@ function Navbar({ srcDOC, html, css, js }) {
       if (!response.ok) {
         throw new Error("Failed to run test on backend");
       }
-      console.log(await response.json());
-      console.log("Test run successfully on backend!");
+      const responseData = await response.json();
+      console.log([responseData]);
+      setTestResults(responseData); // Set the test results separately
+      // setTestData(testData);
     } catch (error) {
       console.error("Error running test on backend:", error);
     }
   };
+
   useEffect(() => {
     const fetchTestData = async () => {
       try {
@@ -64,7 +70,9 @@ function Navbar({ srcDOC, html, css, js }) {
 
     fetchTestData();
   }, []);
-
+  const handleRedItemClick = (reason) => {
+    alert(reason); // Display reason in alert popup
+  };
   return (
     <>
       <div className="navbar">
@@ -95,7 +103,7 @@ function Navbar({ srcDOC, html, css, js }) {
           <li className="nav-text">
             <select onChange={handleTestSelection}>
               <option value="">Select Test</option>
-              {TestData.map((item, index) => (
+              {testData.map((item, index) => (
                 <option key={index} value={item.title}>
                   {item.title}
                 </option>
@@ -106,11 +114,25 @@ function Navbar({ srcDOC, html, css, js }) {
           {selectedTest !== null && (
             <li className="nav-text">
               <div>
-                <h3>Selected Test: {TestData[selectedTest].title}</h3>
+                <h3>Selected Test: {testData[selectedTest].title}</h3>
                 {/* Render tests along with descriptions */}
                 <ul>
-                  {TestData[selectedTest].tests.map((test, index) => (
-                    <li className={`nav-desc ${test.result}`} key={index}>
+                  {testData[selectedTest].tests.map((test, index) => (
+                    <li
+                      className={`nav-desc ${
+                        testResults[index]?.pass === true
+                          ? "green"
+                          : testResults[index]?.pass === false
+                          ? "red"
+                          : ""
+                      }`}
+                      key={index}
+                      onClick={() =>
+                        test.pass
+                          ? null
+                          : handleRedItemClick(testResults[index].reason)
+                      }
+                    >
                       {test.description}
                     </li>
                   ))}

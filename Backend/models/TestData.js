@@ -9,6 +9,8 @@ const testSchema = new Schema({
       selector: { type: String },
       property: { type: String },
       value: { type: String },
+      comparisonType: { type: String },
+      value2: { type: String },
       htmlOption: { type: String },
       htmlValue: { type: String },
       htmlCondition: { type: String },

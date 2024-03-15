@@ -118,10 +118,11 @@
   background-color: #e6e6e6;
 }
 
-.nav-desc.pass {
+.nav-desc.green {
   background-color: rgb(185, 241, 101);
 }
-.nav-desc.fail {
+.nav-desc.red {
+  cursor: pointer;
   background-color: rgb(243, 84, 84);
 }
 

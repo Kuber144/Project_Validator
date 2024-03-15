@@ -11,7 +11,7 @@ export function testJS(js, test) {
 
     if (!match) {
       return {
-        status: "Fail",
+        pass: false,
         reason: `Function '${functionName}' not found`,
       };
     }
@@ -19,7 +19,7 @@ export function testJS(js, test) {
     console.log(`Function '${functionName}' found`);
     if (checkType === "exists") {
       return {
-        status: "Pass",
+        pass: false,
         reason: `Function '${functionName}' exists`,
       };
     }
@@ -33,7 +33,7 @@ export function testJS(js, test) {
 
       if (argsPassed.length !== args.length) {
         return {
-          status: "Fail",
+          pass: false,
           reason: "Arguments Mismatch",
         };
       }
@@ -52,19 +52,19 @@ export function testJS(js, test) {
       const isPass = output == expectedOutput;
 
       return {
-        status: isPass ? "Pass" : "Fail",
+        status: isPass ? true : false,
         reason: isPass
           ? "All cases passed"
           : `Expected '${expectedOutput}' but got '${output}'`,
       };
     }
     return {
-      status: "Fail",
+      pass: false,
       reason: "Invalid check type. Please inform the instructor",
     };
   } catch (error) {
     return {
-      status: "Error",
+      pass: false,
       reason: `An error occurred: ${error.message}`,
     };
   }

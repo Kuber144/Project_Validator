@@ -34,6 +34,8 @@ export default function CreateTests() {
         selector: test.selector,
         property: test.property,
         value: test.value,
+        value2: test.value2,
+        comparisonType: test.comparisonType,
         htmlOption: test.htmlOption,
         htmlValue: test.htmlValue,
         htmlCondition: test.htmlCondition,

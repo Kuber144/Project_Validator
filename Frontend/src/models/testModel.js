@@ -5,6 +5,8 @@ const testModel = () => ({
   selector: "",
   property: "",
   value: "",
+  comparisonType: "",
+  value2: "",
   htmlOption: "",
   htmlValue: "",
   htmlCondition: "",
