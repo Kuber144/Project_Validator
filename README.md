@@ -1,5 +1,34 @@
 # Project_Validator
 
+## Installation Instructions
+
+To run this application you need to have nodejs installed and have npm or its equivalent.
+
+First clone the repository using the git clone command: -
+
+```
+git clone https://github.com/Kuber144/Project_Validator.git
+```
+
+After cloning open a terminal inside the backend folder (if you wish to run the project on localhost then you need to replace the url in frontend for api calls with localhost).
+After opening the terminalrun the following commands in the same directory as index.js to start the backend: -
+
+```
+npm install
+node index.js
+```
+
+To run the frontend, open another terminal in the Frontend folder this time and run the following commands: -
+
+```
+npm install --force
+npm start
+```
+
+We have to use npm install --force in this case because of dependency issue with codemirror.
+
+## About the project
+
 In this application, I've developed a convenient way for users to test HTML, CSS, and JavaScript code directly within the browser. The primary functionality revolves around allowing users to input code snippets, create tests to evaluate their code, and determine whether their code meets the specified criteria.
 
 ## Frontend Devlopment
@@ -37,6 +66,4 @@ Now when all test cases are tested, the response is sent back and then according
 
 Project Validator offers a robust solution for code testing, enabling developers to ensure the quality and functionality of their code effortlessly. By providing a seamless integration of frontend and backend components, along with intuitive test creation and processing capabilities, the application empowers users to validate their code with confidence.
 
-
 https://github.com/Kuber144/Project_Validator/assets/96476340/c434dc59-0afc-4ba4-8ee3-078fc9a821c8
-
