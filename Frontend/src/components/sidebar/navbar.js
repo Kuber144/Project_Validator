@@ -31,7 +31,7 @@ function Navbar({ srcDOC, html, css, js }) {
     if (selectedTestIndex === null) return; // Return if no test is selected
     try {
       const title = testData[selectedTestIndex].title;
-      const response = await fetch("http://localhost:8000/test/testcode", {
+      const response = await fetch("https://project-validator-backend-three.vercel.app/test/testcode", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
